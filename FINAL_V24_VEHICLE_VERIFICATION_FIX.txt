@@ -1,0 +1,4 @@
+WildTrail Lanka v24 - Vehicle Verification Workflow Fix
+Driver submits vehicle details -> status Pending -> Admin Users & approvals shows the vehicle -> Admin reviews details/documents -> Approve/Reject -> driver receives notification.
+Admin now sees ALL submitted vehicles (pending, rejected, approved), so a vehicle cannot disappear from the management screen after a status change.
+No database schema change from v23.

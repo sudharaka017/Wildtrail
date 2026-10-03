@@ -1,0 +1,11 @@
+<?php
+// Copy this file to includes/config.local.php and replace the placeholders.
+// IMPORTANT: Never commit or submit your real Merchant Secret publicly.
+return [
+  'app_url' => 'https://YOUR-PUBLIC-HTTPS-DOMAIN/wildtrail',
+  'google_client_id' => '',
+  'google_client_secret' => '',
+  'payhere_mode' => 'sandbox',
+  'payhere_merchant_id' => 'PASTE_YOUR_SANDBOX_MERCHANT_ID',
+  'payhere_merchant_secret' => 'PASTE_YOUR_SANDBOX_MERCHANT_SECRET',
+];

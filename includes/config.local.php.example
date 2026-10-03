@@ -1,0 +1,9 @@
+<?php
+return [
+  'app_url' => 'https://YOUR-PUBLIC-HTTPS-DOMAIN/wildtrail',
+  'google_client_id' => 'PASTE_GOOGLE_CLIENT_ID.apps.googleusercontent.com',
+  'google_client_secret' => 'PASTE_GOOGLE_CLIENT_SECRET',
+  'payhere_mode' => 'sandbox', // REAL PayHere Sandbox
+  'payhere_merchant_id' => 'PASTE_YOUR_SANDBOX_MERCHANT_ID',
+  'payhere_merchant_secret' => 'PASTE_YOUR_SANDBOX_MERCHANT_SECRET',
+];

@@ -1,0 +1,9 @@
+<?php
+require '../includes/bootstrap.php'; require '../includes/layout.php'; require_role('tourist');
+$id=(int)($_GET['id']??0);
+$st=$pdo->prepare("SELECT b.*,p.name,ps.label,ps.start_time,ps.end_time,v.make_model,v.plate_number,gu.full_name guide_name,du.full_name driver_name FROM bookings b JOIN parks p ON p.id=b.park_id JOIN park_slots ps ON ps.id=b.slot_id LEFT JOIN vehicles v ON v.id=b.vehicle_id LEFT JOIN users gu ON gu.id=b.guide_id LEFT JOIN users du ON du.id=b.driver_id WHERE b.id=? AND b.visitor_id=? AND b.payment_status='paid' AND b.status IN('confirmed','completed')");
+$st->execute([$id,$_SESSION['user_id']]); $b=$st->fetch(); if(!$b){flash('error','Confirmed booking not found.');header('Location: bookings.php');exit;}
+dashboard_top('Safari confirmed','Tourist portal'); back_button('bookings.php','Back to my bookings'); ?>
+<div class="panel confirmation-card"><div class="eyebrow">Booking complete</div><h1 class="dash-title">Safari confirmed ✓</h1><p>Your payment is complete and your field team is secured. Keep the QR permit ready for your visit.</p>
+<div class="summary-lines"><span>Booking code</span><strong><?=e($b['booking_code'])?></strong><span>Park</span><strong><?=e($b['name'])?></strong><span>Date / safari time</span><strong><?=e($b['entry_date'])?> · <?=e($b['label'])?></strong><span>Guide</span><strong><?=e($b['guide_name'])?></strong><span>Jeep / driver</span><strong><?=e($b['make_model'])?> · <?=e($b['driver_name'])?></strong><span>Pickup</span><strong><?=e($b['pickup_location'])?></strong><span>Payment</span><strong>Paid · <?=e($b['payment_ref'])?></strong></div>
+<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:20px"><a class="btn" href="permit.php?id=<?=$id?>">View QR permit</a><a class="btn ghost" href="bookings.php">My bookings</a></div></div><?php dashboard_bottom(); ?>

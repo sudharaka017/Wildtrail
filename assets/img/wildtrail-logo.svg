@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+<title>WildTrail Lanka</title><desc>Leaf and trail monogram</desc>
+<circle cx="32" cy="32" r="30" fill="#1f6d5c"/>
+<path d="M18 39c8-1 14-6 17-15 7 3 11 9 11 17-8 2-15 0-20-5-2 4-3 8-3 12" fill="none" stroke="#fffdf8" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M27 36c4-4 8-7 14-9" fill="none" stroke="#f29732" stroke-width="3" stroke-linecap="round"/>
+</svg>

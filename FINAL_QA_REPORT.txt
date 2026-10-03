@@ -1,0 +1,81 @@
+WILDTRAIL LANKA v23 - FINAL ROLE / WORKFLOW QA
+Date: 2026-09-21
+
+STATIC / CODE QA COMPLETED
+- 75 PHP files: 0 PHP syntax errors.
+- Validator smoke tests: local Sri Lankan phone PASS; international E.164-style phone PASS; invalid phone rejected; strong password PASS; vehicle plate PASS.
+- Seeded demo password hash verified against password `password`.
+- Role guard audit completed. Tourist/Guide/Driver/Admin pages are role protected; payment_notify.php is intentionally public because it is a payment-provider callback and verifies the PayHere signature outside local_demo mode.
+- ZIP integrity is checked after packaging.
+
+END-TO-END ROLE FLOW REVIEW
+1. REGISTRATION / LOGIN
+PASS - Tourist activates immediately.
+PASS - Guide/driver register pending; admin can activate professional account.
+PASS - International +country-code tourist numbers accepted as well as Sri Lankan 07 numbers.
+PASS - Strong password and CSRF/server validation present.
+
+2. GUIDE
+PASS - Guide profile, licence upload, authorised parks, languages, specialties, experience and fee.
+PASS - Bio/general profile edits keep verification; licence/document/park changes require re-verification.
+PASS - Monthly availability starts unavailable until explicitly saved.
+PASS - Tourist search requires active account + verified profile + authorised park + exact availability + no date/slot_key conflict.
+PASS - Schedule shows pickup point, tourist contact, notes, booking status and payment status; cancelled bookings are excluded.
+PASS - Notifications page exists and payment/cancellation events notify guide.
+PASS - Sightings are restricted to parks assigned to that guide.
+PASS - Guide earnings use guide_fee_component from paid confirmed/completed bookings.
+
+3. DRIVER / JEEP OWNER
+PASS - Vehicle form validates plate/model/capacity/safari type/price and keeps submitted values after validation errors.
+PASS - Operating parks are selected and enforced.
+PASS - Material vehicle/compliance/park changes require re-verification; non-compliance profile edits can keep existing approval.
+PASS - Monthly availability starts unavailable until explicitly saved.
+PASS - Tourist search requires approved vehicle + active driver + authorised park + capacity + exact availability + no date/slot_key conflict.
+PASS - Assigned safaris show pickup point, tourist contact, notes and payment status; cancelled bookings are excluded.
+PASS - Notifications page exists and payment/cancellation events notify driver.
+PASS - Earnings use vehicle_fee_component only, excluding cancelled bookings.
+
+4. TOURIST
+PASS - Explore parks -> choose park/date/safari time/guests -> availability search.
+PASS - Only park-specific verified and explicitly available guides/vehicles appear.
+PASS - Booking service rechecks availability server-side.
+PASS - Same guide/vehicle cannot be booked in the same date + slot_key across different parks.
+PASS - Per-slot capacity and park daily_vehicle_cap are enforced under park/slot row locks.
+PASS - Local PayHere demo does not store card data; successful demo payment confirms booking.
+PASS - Real callback path checks signature, merchant, amount match and LKR currency before confirming.
+PASS - QR permit available after paid confirmation.
+PASS - Admin permit-code verification page added.
+PASS - Cancellation shows/stores 50% refund and 50% cancellation charge for eligible paid future bookings.
+PASS - Completed safari can be reviewed; edit review loads existing values.
+PASS - Tourist notifications and booking status/refund status are visible.
+
+5. ADMIN / SUPER ADMIN
+PASS - User activation/rejection controls are whitelisted.
+PASS - Vehicle approval/rejection controls are whitelisted; driver receives approval/rejection notification.
+PASS - Guide approve/reject available; guide receives notification.
+PASS - Admin can open uploaded guide licence and vehicle registration/insurance/fitness documents.
+PASS - Park fee/cap/status inputs are validated; daily cap is now actually enforced by booking logic.
+PASS - Booking/refund monitor supports manual refund-completed state for localhost demo.
+PASS - Permit verification page validates booking code/payment/status.
+PASS - Wildlife heatmap review no longer redirects using raw REQUEST_URI and reports missing sighting IDs correctly.
+PASS - Public wildlife recent list queries verified sightings before applying its limit.
+
+6. DATA / OOP / CONSISTENCY
+PASS - park_slots has explicit slot_key; booking conflicts no longer depend on per-park slot IDs or label string matching for availability calendars.
+PASS - guide_parks and vehicle_parks model park-specific operation.
+PASS - OOP Domain/Repository/Service structure remains in place for core logic.
+PASS - Fresh schema contains the final columns, assignments, availability demo data and performance indexes.
+PASS - Old upgrade scripts moved to sql/legacy_upgrades; only the v23 upgrade is at the main sql level.
+
+KNOWN UNIVERSITY-DEMO LIMITATIONS (NOT DEMO-BLOCKING)
+- Localhost uses local_demo payment. Real PayHere callbacks require public HTTPS.
+- Refund completion is recorded manually by admin; there is no gateway refund API/financial ledger.
+- Reservation expiry/completed-state housekeeping runs during web requests rather than a production cron/scheduler.
+- No email/password-reset service; notifications are in-app.
+- One vehicle profile is managed per driver account in this build.
+- Remote park/species imagery and Leaflet/OpenStreetMap map assets need internet access; core booking pages still work without those visual assets.
+- Park-zone circles are demo/operational zones, not official DWC boundary polygons.
+- The execution environment used for this final audit did not provide a running MySQL/XAMPP browser stack, so database-backed browser clicks were reviewed from the code/schema rather than claimed as live XAMPP execution.
+
+RECOMMENDED PRESENTATION PATH
+Use a fresh schema import for the cleanest demo. Demonstrate: Admin -> professional approval -> Guide/Driver profile + park + availability -> Admin verification -> Tourist search/book -> demo payment -> QR permit -> Admin permit verification -> Guide/Driver confirmed assignment -> Admin booking/refund/wildlife screens.

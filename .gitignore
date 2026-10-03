@@ -1,0 +1,12 @@
+# Ignore system level directories that appeared as untracked
+../../*
+../../../*
+# Common ignore patterns for PHP projects
+/vendor/
+node_modules/
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
+# Uploaded files – usually not versioned
+uploads/

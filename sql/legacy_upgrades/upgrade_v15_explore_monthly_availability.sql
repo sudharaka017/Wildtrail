@@ -1,0 +1,9 @@
+-- WildTrail Lanka v15: richer park galleries. Safe to run once on a v14 database.
+INSERT INTO park_images(park_id,image_url,caption,credit,source_url,sort_order)
+SELECT p.id,'https://commons.wikimedia.org/wiki/Special:Redirect/file/Slothbearatyala.jpg?width=1600','Sloth bear in Yala National Park','Faslan','https://commons.wikimedia.org/wiki/File:Slothbearatyala.jpg',5 FROM parks p WHERE p.slug='yala' AND NOT EXISTS(SELECT 1 FROM park_images i WHERE i.park_id=p.id AND i.sort_order=5);
+INSERT INTO park_images(park_id,image_url,caption,credit,source_url,sort_order)
+SELECT p.id,'https://commons.wikimedia.org/wiki/Special:Redirect/file/Sri%20Lankan%20Elephant.jpg?width=1600','Sri Lankan elephant in Udawalawe','Wikimedia Commons contributor','https://commons.wikimedia.org/wiki/File:Sri_Lankan_Elephant.jpg',5 FROM parks p WHERE p.slug='udawalawe' AND NOT EXISTS(SELECT 1 FROM park_images i WHERE i.park_id=p.id AND i.sort_order=5);
+INSERT INTO park_images(park_id,image_url,caption,credit,source_url,sort_order)
+SELECT p.id,'https://commons.wikimedia.org/wiki/Special:Redirect/file/Herd%20of%20Elephant%20in%20Minneriya%20National%20Park.jpg?width=1600','Elephant herd in Minneriya','Chamara','https://commons.wikimedia.org/wiki/File:Herd_of_Elephant_in_Minneriya_National_Park.jpg',5 FROM parks p WHERE p.slug='minneriya' AND NOT EXISTS(SELECT 1 FROM park_images i WHERE i.park_id=p.id AND i.sort_order=5);
+INSERT INTO park_images(park_id,image_url,caption,credit,source_url,sort_order)
+SELECT p.id,'https://commons.wikimedia.org/wiki/Special:Redirect/file/Sloth%20Bear%20-%20Wilpattu%20National%20Park.jpg?width=1600','Sloth bear in Wilpattu National Park','Nishan Silva','https://commons.wikimedia.org/wiki/File:Sloth_Bear_-_Wilpattu_National_Park.jpg',5 FROM parks p WHERE p.slug='wilpattu' AND NOT EXISTS(SELECT 1 FROM park_images i WHERE i.park_id=p.id AND i.sort_order=5);

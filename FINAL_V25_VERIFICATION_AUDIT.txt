@@ -1,0 +1,18 @@
+WildTrail Lanka v25 - Verification Workflow Audit
+
+Final targeted audit after v24:
+- Vehicle submissions remain visible to Admin after pending/approved/rejected states.
+- Guide submissions now ALSO remain visible to Admin after verification; they no longer disappear from the verification screen.
+- Admin can re-open the uploaded guide licence document using a safe basename URL.
+- Admin can verify, keep verified, reject, or unverify a guide from the same screen.
+- Guide licence/park changes that require re-verification now create notifications for active admin/superadmin users.
+- Empty state added for guide verification.
+
+Workflow reminder:
+1. Admin activates driver/guide account.
+2. Driver submits vehicle + parks + documents; guide submits licence + parks/profile.
+3. Admin reviews and verifies professional profile/vehicle.
+4. Guide/driver publishes monthly availability.
+5. Tourist search shows only active + verified/approved + park-authorized + available resources with no conflicting booking.
+
+No database schema change is required from v24 to v25.

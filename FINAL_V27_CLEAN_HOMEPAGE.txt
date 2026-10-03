@@ -1,0 +1,8 @@
+WildTrail Lanka v27 - Clean Homepage Navigation
+
+Changes from v26:
+- Removed the public "Field desk" link from the top navigation.
+- Removed "Verified operators" and "Capacity controlled" badges from homepage park cards.
+- Permit verification remains available in the Admin dashboard under "Verify permit".
+- Park cards remain clickable and open the relevant park section.
+- No database changes are required from v26.

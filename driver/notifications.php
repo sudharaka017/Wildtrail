@@ -1,0 +1,6 @@
+<?php
+require '../includes/bootstrap.php'; require '../includes/layout.php'; require_role('driver');
+if($_SERVER['REQUEST_METHOD']==='POST'){ $pdo->prepare('UPDATE notifications SET is_read=1 WHERE user_id=?')->execute([$_SESSION['user_id']]); header('Location: notifications.php'); exit; }
+$st=$pdo->prepare('SELECT * FROM notifications WHERE user_id=? ORDER BY created_at DESC LIMIT 100');$st->execute([$_SESSION['user_id']]);$rows=$st->fetchAll();
+dashboard_top('Notifications','Driver workspace'); back_button('dashboard.php','Back to dashboard'); ?>
+<h1 class="dash-title">Field updates and safari notifications.</h1><?php if($rows): ?><form method="post" style="margin-bottom:14px"><?=csrf_field()?><button class="btn ghost">Mark all read</button></form><?php foreach($rows as $n): ?><div class="panel" style="margin-bottom:10px"><strong><?=$n['is_read']?'Update':'New update'?></strong><p><?=e($n['message'])?></p><span class="small"><?=e($n['created_at'])?></span></div><?php endforeach; else: ?><div class="panel"><h2>No notifications yet</h2><p>Booking, payment and trip updates will appear here.</p></div><?php endif; dashboard_bottom(); ?>

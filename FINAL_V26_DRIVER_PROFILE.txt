@@ -1,0 +1,6 @@
+WildTrail Lanka v26
+Added a dedicated Driver profile separate from Vehicle & documents.
+Driver profile: phone, driving licence, licence document, photo, experience, languages, bio.
+Admin vehicle verification can see the linked driver licence/profile summary.
+Tourists can see appropriate public driver experience/language/bio on the vehicle profile.
+Existing v25 database: run sql/upgrade_v26_driver_profile.sql once.
